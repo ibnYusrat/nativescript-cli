@@ -247,6 +247,7 @@ export class IOSProjectService extends projectServiceBaseLib.PlatformProjectServ
 
 			if (isDynamic) {
 				frameworkAddOptions["embed"] = true;
+				frameworkAddOptions["sign"] = true;
 			}
 
 			const frameworkRelativePath = '$(SRCROOT)/' + this.getLibSubpathRelativeToProjectPath(frameworkPath, projectData);
