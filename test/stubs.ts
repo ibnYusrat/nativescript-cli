@@ -384,7 +384,6 @@ export class PlatformProjectServiceStub extends EventEmitter implements IPlatfor
 			projectRoot: "",
 			getBuildOutputPath: (buildConfig: IBuildConfig) => "",
 			getValidBuildOutputData: (buildOptions: IBuildOutputOptions) => ({ packageNames: [] }),
-			frameworkFilesExtensions: [],
 			appDestinationDirectoryPath: "",
 			relativeToFrameworkConfigurationFilePath: "",
 			fastLivesyncFileExtensions: []
@@ -487,7 +486,6 @@ export class NativeProjectDataStub extends EventEmitter implements IPlatformsDat
 			appDestinationDirectoryPath: "",
 			getBuildOutputPath: () => "",
 			getValidBuildOutputData: (buildOptions: IBuildOutputOptions) => ({ packageNames: [] }),
-			frameworkFilesExtensions: [],
 			relativeToFrameworkConfigurationFilePath: "",
 			fastLivesyncFileExtensions: []
 		};
