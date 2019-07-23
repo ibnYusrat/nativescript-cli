@@ -132,7 +132,7 @@ export class AndroidToolsInfo implements IAndroidToolsInfo {
 	 */
 	private printMessage(msg: string, additionalMsg?: string): void {
 		if (this.showWarningsAsErrors) {
-			this.$errors.failWithoutHelp(msg);
+			this.$errors.fail(msg);
 		} else {
 			this.$logger.warn(msg);
 		}
@@ -149,7 +149,7 @@ export class AndroidToolsInfo implements IAndroidToolsInfo {
 				const installedTargets = this.getInstalledTargets();
 				const androidCompileSdk = `${AndroidToolsInfo.ANDROID_TARGET_PREFIX}-${userSpecifiedCompileSdk}`;
 				if (!_.includes(installedTargets, androidCompileSdk)) {
-					this.$errors.failWithoutHelp(`You have specified '${userSpecifiedCompileSdk}' for compile sdk, but it is not installed on your system.`);
+					this.$errors.fail(`You have specified '${userSpecifiedCompileSdk}' for compile sdk, but it is not installed on your system.`);
 				}
 
 				this.selectedCompileSdk = userSpecifiedCompileSdk;
