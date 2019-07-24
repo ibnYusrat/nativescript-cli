@@ -107,14 +107,14 @@ export function performanceLog(injector?: IInjector): any {
 					performanceService.processExecutionData(trackName, start, end, args);
 				} else {
 					resolvedPromise
-					.then(() => {
-						end = performanceService.now();
-						performanceService.processExecutionData(trackName, start, end, args);
-					})
-					.catch((err) => {
-						end = performanceService.now();
-						performanceService.processExecutionData(trackName, start, end, args);
-					});
+						.then(() => {
+							end = performanceService.now();
+							performanceService.processExecutionData(trackName, start, end, args);
+						})
+						.catch((err) => {
+							end = performanceService.now();
+							performanceService.processExecutionData(trackName, start, end, args);
+						});
 				}
 
 				return result;
@@ -128,5 +128,29 @@ export function performanceLog(injector?: IInjector): any {
 		};
 
 		return descriptor;
+	};
+}
+
+// inspired by https://github.com/NativeScript/NativeScript/blob/55dfe25938569edbec89255008e5ad9804901305/tns-core-modules/globals/globals.ts#L121-L137
+export function deprecated(additionalInfo?: string, injector?: IInjector): any {
+	injector = injector || $injector;
+	const $logger = <ILogger>injector.resolve("logger");
+	additionalInfo = additionalInfo || "";
+	return (target: Object, key: string, descriptor: TypedPropertyDescriptor<any>): TypedPropertyDescriptor<any> => {
+		if (descriptor) {
+			const originalMethod = descriptor.value;
+
+			descriptor.value = function (...args: any[]) {
+				$logger.warn(`${key.toString()} is deprecated. ${additionalInfo}`);
+
+				return originalMethod.apply(this, args);
+			};
+
+			return descriptor;
+		} else {
+			console.warn(`${(target && (<any>target).name || target)} is deprecated. ${additionalInfo}`);
+
+			return target;
+		}
 	};
 }
